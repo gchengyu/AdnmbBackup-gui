@@ -75,7 +75,8 @@ namespace AdnmbBackup_gui
                 var bytes = t2.Result;
                 var str = ReadGzip(bytes);
                 label4.Text = str;
-                var fpjson = JsonConvert.DeserializeObject<JObject>(str);
+                var fpjson2 = JsonConvert.DeserializeObject<JObject>(str);
+                var fpjson = fpjson2["result"];
                 var replyCount = int.Parse(fpjson["ReplyCount"].ToString());
                 int pageCount = replyCount / 19;
                 if (replyCount % pageCount != 0) pageCount++;
@@ -90,7 +91,8 @@ namespace AdnmbBackup_gui
                     t2.Wait();
                     bytes = t2.Result;
                     str = ReadGzip(bytes);
-                    var jo = JsonConvert.DeserializeObject<JObject>(str);
+                    var jo2 = JsonConvert.DeserializeObject<JObject>(str);
+                    var jo = jo2["result"];
                     JArray ja = jo["replys"].ToObject<JArray>();
                     var rpcount = ja.Count;
                     for (int j = 0; j < rpcount; j++)
@@ -126,7 +128,8 @@ namespace AdnmbBackup_gui
         }
         static void ConvertToText(string path)
         {
-            var jo = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(path));
+            var jo2 = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(path));
+            var jo = jo2["result"];
             var sb = new StringBuilder();
             sb.Append(jo["userid"].ToString()); sb.Append("  "); sb.Append(jo["now"].ToString());
             sb.Append("  No."); sb.Append(jo["id"].ToString()); sb.Append(Environment.NewLine);
@@ -149,7 +152,8 @@ namespace AdnmbBackup_gui
         static void ConvertToTextPoOnly(string path)
         {
             var po_path = path.Replace("cache", "po").Replace("json", "txt");
-            var jo = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(path));
+            var jo2 = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(path));
+            var jo = jo2["result"];
             var sb = new StringBuilder();
             sb.Append(jo["userid"].ToString()); sb.Append("  "); sb.Append(jo["now"].ToString());
             sb.Append("  No."); sb.Append(jo["id"].ToString()); sb.Append(Environment.NewLine);
@@ -240,7 +244,8 @@ namespace AdnmbBackup_gui
                         t2.Wait();
                         var bytes = t2.Result;
                         var str = ReadGzip(bytes);
-                        var fpjson = JsonConvert.DeserializeObject<JObject>(str);
+                        var fpjson2 = JsonConvert.DeserializeObject<JObject>(str);
+                        var fpjson = fpjson2["result"];
                         var replyCount = int.Parse(fpjson["ReplyCount"].ToString());
                         int pageCount = replyCount / 19;
                         if (replyCount % pageCount != 0) pageCount++;
@@ -255,7 +260,8 @@ namespace AdnmbBackup_gui
                             t2.Wait();
                             bytes = t2.Result;
                             str = ReadGzip(bytes);
-                            var jo = JsonConvert.DeserializeObject<JObject>(str);
+                            var jo2 = JsonConvert.DeserializeObject<JObject>(str);
+                            var jo = jo2["result"];
                             JArray ja = jo["replys"].ToObject<JArray>();
                             var rpcount = ja.Count;
                             for (int j = 0; j < rpcount; j++)
