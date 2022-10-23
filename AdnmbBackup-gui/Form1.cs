@@ -70,10 +70,13 @@ namespace AdnmbBackup_gui
                 var t = http.GetAsync(url + "?id=" + id + "&page=1");
                 t.Wait();
                 var result = t.Result;
+                label4.Text = "成功请求，正在解码";
                 var t2 = result.Content.ReadAsByteArrayAsync();
                 t2.Wait();
                 var bytes = t2.Result;
+                label4.Text = "解码成功，正在解压";
                 var str = ReadGzip(bytes);
+                label4.Text = "解压成功，正在解析";
                 label4.Text = str;
                 var fpjson2 = JsonConvert.DeserializeObject<JObject>(str);
                 var fpjson = fpjson2["result"];
