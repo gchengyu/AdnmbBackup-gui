@@ -74,7 +74,6 @@ namespace AdnmbBackup_gui
                 var t2 = result.Content.ReadAsByteArrayAsync();
                 t2.Wait();
                 var bytes = t2.Result;
-                label4.Text = "解码成功，正在解压";
                 var str = ReadGzip(bytes);
                 label4.Text = "解压成功，正在解析";
                 label4.Text = str;
