@@ -61,11 +61,6 @@ namespace AdnmbBackup_gui
                     return;
                 }
             }
-            if (!File.Exists("cookie.txt"))
-            {
-                MessageBox.Show("请先放好小饼干");
-                return;
-            }
             if (File.Exists("AutoBackupList.txt")) { if (!File.ReadAllLines("AutoBackupList.txt").Contains(id)) { File.AppendAllText("AutoBackupList.txt", id + Environment.NewLine); } }
             string path = Path.Combine("cache", id + ".json");
             string po = Path.Combine("po", id + ".txt");
@@ -92,14 +87,9 @@ namespace AdnmbBackup_gui
                             i--;
                         }
                     }
-                    string url = "https://api.nmb.best/Api/thread";
-                    var cookie = File.ReadAllText("cookie.txt");
-                    CookieContainer cookieContainer = new CookieContainer();
-                    cookieContainer.Add(new Cookie("userhash", cookie, "/", "api.nmb.best"));
-                    HttpClientHandler handler = new HttpClientHandler() { UseCookies = true };
-                    handler.CookieContainer = cookieContainer;
-                    HttpClient http = new HttpClient(handler);
-                    http.DefaultRequestHeaders.Add("Host", "api.nmb.best");
+                    string url = "https://islandproxy.bcy0639.workers.dev/Api/thread";
+                    HttpClient http = new HttpClient();
+                    http.DefaultRequestHeaders.Add("Host", "islandproxy.bcy0639.workers.dev");
                     http.DefaultRequestHeaders.Add("Accept", "application/json");
                     http.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
                     http.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.0.0 Safari/537.36");
@@ -147,14 +137,9 @@ namespace AdnmbBackup_gui
                 }
                 else
                 {
-                    string url = "https://api.nmb.best/Api/thread";
-                    var cookie = File.ReadAllText("cookie.txt");
-                    CookieContainer cookieContainer = new CookieContainer();
-                    cookieContainer.Add(new Cookie("userhash", cookie, "/", "api.nmb.best"));
-                    HttpClientHandler handler = new HttpClientHandler() { UseCookies = true };
-                    handler.CookieContainer = cookieContainer;
-                    HttpClient http = new HttpClient(handler);
-                    http.DefaultRequestHeaders.Add("Host", "api.nmb.best");
+                    string url = "https://islandproxy.bcy0639.workers.dev/Api/thread";
+                    HttpClient http = new HttpClient();
+                    http.DefaultRequestHeaders.Add("Host", "islandproxy.bcy0639.workers.dev");
                     http.DefaultRequestHeaders.Add("Accept", "application/json");
                     http.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
                     http.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.0.0 Safari/537.36");
@@ -459,15 +444,8 @@ namespace AdnmbBackup_gui
             {
                 // read uuid 
                 var uuid = File.ReadAllText("uuid.txt");
-                // get cookie
-                if (!File.Exists("cookie.txt"))
-                {
-                    MessageBox.Show("请先放好小饼干");
-                    return;
-                }
                 int errCount = 0;
                 var err = new List<string>();
-                var cookie = File.ReadAllText("cookie.txt");
                 HashSet<string> ids; // Store the ids.
                 if (File.Exists("AutoBackupList.txt"))
                 {
@@ -484,14 +462,10 @@ namespace AdnmbBackup_gui
                 // get ids via api
                 while (true) // We will break out of the loop when we get an empty response.
                 {
-                    string feedurl = String.Format("https://api.nmb.best/Api/feed?uuid={0}&page={1}", uuid, pageNo);
+                    string feedurl = String.Format("https://islandproxy.bcy0639.workers.dev/Api/feed?uuid={0}&page={1}", uuid, pageNo);
                     label4.Text = "正在获取订阅串列表，第" + pageNo + "页，url：";
-                    CookieContainer cookieContainer = new CookieContainer();
-                    cookieContainer.Add(new Cookie("userhash", cookie, "/", "api.nmb.best"));
-                    HttpClientHandler handler = new HttpClientHandler() { UseCookies = true };
-                    handler.CookieContainer = cookieContainer;
-                    HttpClient http = new HttpClient(handler);
-                    http.DefaultRequestHeaders.Add("Host", "api.nmb.best");
+                    HttpClient http = new HttpClient();
+                    http.DefaultRequestHeaders.Add("Host", "islandproxy.bcy0639.workers.dev");
                     http.DefaultRequestHeaders.Add("Accept", "application/json");
                     http.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
                     http.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.0.0 Safari/537.36"); // todo: change to the App UA with github link
@@ -532,13 +506,7 @@ namespace AdnmbBackup_gui
             }
             if (File.Exists("AutoBackupList.txt"))
             {
-                if (!File.Exists("cookie.txt"))
-                {
-                    MessageBox.Show("请先放好小饼干");
-                    return;
-                }
                 int errCount = 0;
-                var cookie = File.ReadAllText("cookie.txt");
                 var ids = File.ReadAllLines("AutoBackupList.txt");
                 ids = ids.Distinct().OrderBy(x => x).ToArray();
                 ids = ids.Where(x => x != "").ToArray();
@@ -574,13 +542,9 @@ namespace AdnmbBackup_gui
                                         i--;
                                     }
                                 }
-                                string url = "https://api.nmb.best/Api/thread";
-                                CookieContainer cookieContainer = new CookieContainer();
-                                cookieContainer.Add(new Cookie("userhash", cookie, "/", "api.nmb.best"));
-                                HttpClientHandler handler = new HttpClientHandler() { UseCookies = true };
-                                handler.CookieContainer = cookieContainer;
-                                HttpClient http = new HttpClient(handler);
-                                http.DefaultRequestHeaders.Add("Host", "api.nmb.best");
+                                string url = "https://islandproxy.bcy0639.workers.dev/Api/thread";
+                                HttpClient http = new HttpClient();
+                                http.DefaultRequestHeaders.Add("Host", "islandproxy.bcy0639.workers.dev");
                                 http.DefaultRequestHeaders.Add("Accept", "application/json");
                                 http.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
                                 http.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.0.0 Safari/537.36");
@@ -627,13 +591,9 @@ namespace AdnmbBackup_gui
                             }
                             else
                             {
-                                string url = "https://api.nmb.best/Api/thread";
-                                CookieContainer cookieContainer = new CookieContainer();
-                                cookieContainer.Add(new Cookie("userhash", cookie, "/", "api.nmb.best"));
-                                HttpClientHandler handler = new HttpClientHandler() { UseCookies = true };
-                                handler.CookieContainer = cookieContainer;
-                                HttpClient http = new HttpClient(handler);
-                                http.DefaultRequestHeaders.Add("Host", "api.nmb.best");
+                                string url = "https://islandproxy.bcy0639.workers.dev/Api/thread";
+                                HttpClient http = new HttpClient();
+                                http.DefaultRequestHeaders.Add("Host", "islandproxy.bcy0639.workers.dev");
                                 http.DefaultRequestHeaders.Add("Accept", "application/json");
                                 http.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
                                 http.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.0.0 Safari/537.36");
